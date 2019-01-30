@@ -15,15 +15,25 @@ namespace MathQuiz04
         Random randomizer = new Random();
         int addend1;
         int addend2;
+        int minuend;
+        int subtrahend;
         int timeLeft;
 
         public void StartTheQuiz()
         {
+            // Addition problem.
             addend1 = randomizer.Next(51);
             addend2 = randomizer.Next(51);
             plusLeftLabel.Text = addend1.ToString();
             plusRightLabel.Text = addend2.ToString();
             sum.Value = 0;
+            // Subtraction problem.
+            minuend = randomizer.Next(1, 101);
+            subtrahend = randomizer.Next(1, minuend);
+            minusLeftLabel.Text = minuend.ToString();
+            minusRightLabel.Text = subtrahend.ToString();
+            difference.Value = 0;
+            // Timer.
             timeLeft = 30;
             timeLabel.Text = "30 SECONDS";
             timer1.Start();
@@ -58,13 +68,15 @@ namespace MathQuiz04
                 timeLabel.Text = "TIME'S UP";
                 MessageBox.Show("DID NOT FINISH", "CLICK BUTTON TO SEE ANSWERS");
                 sum.Value = addend1 + addend2;
+                difference.Value = minuend - subtrahend;
                 startButton.Enabled = true;
             }
                    
         }
         private bool CheckTheAnswer()
         {
-            if (addend1 + addend2 == sum.Value)
+            if ((addend1 + addend2 == sum.Value)
+                && (minuend - subtrahend == difference.Value))
                 return true;
             else
                 return false;
